@@ -1,0 +1,5 @@
+[ 이론탐구 ]
+https://www.youtube.com/watch?v=Uejz2UFtFoo
+
+[ 관련 논문-1 ]
+https://www.vldb.org/pvldb/vol4/p173-bahmani.pdf
