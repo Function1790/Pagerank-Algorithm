@@ -6,14 +6,22 @@ def probabilityMatrix(martix: np.array):
     length = len(A)
     for i in range(length):
         total = 0
+        # 다른 노드로 갈 수 있는 링크의 갯수 합하기
         for j in range(length):
             total += A[j][i]
 
+        # 확률값 = 1 / (다른 노드로 연결된 링크의 갯수)
         value = 1 / total
-        if total == 0:
-            # irrducible 조건 만족
+        if total == 0: # irrducible 조건 만족
+            # 한 노드에서 다른 노드로 갈 수 없다면
+            # 가중치가 그 노드에 집중되는 현상이 일어남
+            # -> 열의 모든 값 = 1 / 전체노드 갯수
             value = 1 / length
+            for j in range(length):
+                A[j][i] = value
+                continue
         for j in range(length):
+            # 현재 노드(i)에서 j노드로 갔을때만 확률값 대입
             if A[j][i]!=0:
                 A[j][i] = value
 
@@ -45,8 +53,6 @@ A = np.array(
 )
 
 # 확률행렬
-# 한 노드에서 다른 노드로 갈 수 없다면
-# 가중치가 그 노드에 집중되는 현상이 일어남
 H = probabilityMatrix(A)
 
 # Google 행렬
