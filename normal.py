@@ -31,10 +31,10 @@ def probabilityMatrix(martix: np.array):
 def convergeRankscore(martix: np.array, count):
     length = len(martix)
     X = 1 / length * np.ones((length, 1))
-    #record = []
+    record = []
     for i in range(count):
         X = martix @ X
-    #    record.append(sum(X))
+        record.append(sum(X[0]))
     #plt.plot(record)
     #plt.show()
     return X
@@ -61,8 +61,10 @@ H = probabilityMatrix(A)
 # -> 제동 계수를 활용하여 낮은 가중치로 연결
 length = len(A)
 d = 0.85  # 제동계수
-lowWeights = np.ones((length, length))
-G = d * H + (1 - d) / length * lowWeights
+# 1/길이로 이루어진 행렬
+E = np.ones((length, length)) / length
+# 구글 행렬 계산 = dH+(1-d)E
+G = d * H + (1 - d) * E
 
 # 한 값으로 rankscore 수렴시키기
 X = convergeRankscore(G, 100)
